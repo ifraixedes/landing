@@ -102,7 +102,7 @@ gulp.task('styles', () => {
     pimport(),
     pcssnext(AUTOPREFIXER),
     cssmqpacker()
-  ]
+  ];
   let uncssOpts = Object.assign({}, UNCSS, {
     html: ['dist/**/*.html']
   });
@@ -166,12 +166,11 @@ gulp.task('serve', ['init'], () => {
     // Customize the Browsersync console logging prefix
     logPrefix: 'FM',
     // Allow scroll syncing across breakpoints
-    //scrollElementMapping: ['main', '.mdl-layout'],
+    //scrollElementMapping: ['main'],
     // Run as an https by uncommenting 'https: true'
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    //server: ['.tmp', 'app'],
     server: ['dist'],
     host: '0.0.0.0',
     port: 3000
@@ -197,29 +196,4 @@ gulp.task('init', cb =>
 );
 
 gulp.task('default', ['init']);
-// Build and serve the output from the dist build
-//gulp.task('serve:dist', ['default'], () =>
-//  browserSync({
-//    notify: false,
-//    logPrefix: 'WSK',
-//    // Allow scroll syncing across breakpoints
-//    scrollElementMapping: ['main', '.mdl-layout'],
-//    // Run as an https by uncommenting 'https: true'
-//    // Note: this uses an unsigned certificate which on first access
-//    //       will present a certificate warning in the browser.
-//    // https: true,
-//    server: 'dist',
-//    port: 3001
-//  })
-//);
-
-// Build production files, the default task
-//gulp.task('default', ['clean'], cb =>
-//  runSequence(
-//    'styles',
-//    ['lint', 'html', 'scripts', 'images', 'copy'],
-//    'generate-service-worker',
-//    cb
-//  )
-//);
 
