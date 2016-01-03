@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "name": "Ivan Fraixedes Landing Page",
+  "launch_path": "/index.html",
+  "description": "The Ivan Fraixedes site where you can read about him & his passion, which is his professional career",
+  "icons": {
+    "128": "/img/touch/icon-128x128.png"
+  },
+  "developer": {
+    "name": "Ivan Fraixedes",
+    "url": "http://ivan.fraixed.es"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "Ivan Fraixedes Landing Page",
+      "description": "The Ivan Fraixedes site where you can read about him & his passion, which is his professional career"
+    }
+  }
+}

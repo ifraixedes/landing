@@ -1,0 +1,20 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+  Ivan Fraixedes
+  Software Engineer
+  Github: ifraixedes
+  Twitter: @ifraixedes
+
+# THANKS
+  This projects, teams, resources, ... have made possible to create this site.
+  * Pure.css to provide a set of small, responsive CSS modules that you can use in every web project (http://purecss.io - BSD License, all right reserved by Yahoo! Inc)
+  * Font Awesome to provide an awesom iconic font and CSS toolkit (http://fortawesome.github.io/Font-Awesome/ - MIT license)
+  * Ryan Seddom to provide H5F, a JavaScript library that allows you to use the HTML5 Forms chapters new field input types, attributes and constraint validation API in non-supporting browsers (https://github.com/ryanseddon/H5F - MIT License)
+  * Google Web Starter Kit which inspired me to use some of the tools to create the build and having a HTML with metatags to target mobile phones (https://developers.google.com/web/tools/starter-kit/?hl=en - Apache 2.0 License)
+
+# TECHNOLOGY COLOPHON
+
+  HTML5, CSS3
