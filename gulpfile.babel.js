@@ -111,13 +111,12 @@ gulp.task('styles', () => {
   return gulp.src([
     'app/styles/main.css'
   ])
-  //.pipe(process.env.FM_ENV === 'dev' ? $.sourcemaps.init() : $.util.noop())
+  .pipe(process.env.FM_ENV === 'dev' ? $.sourcemaps.init() : $.util.noop())
   .pipe($.postcss(processors))
-  // Concatenate and minify styles
   .pipe($.uncss(uncssOpts))
   .pipe($.minifyCss(MINIFY_CSS))
   .pipe($.size({title: 'styles'}))
-  //.pipe(process.env.FM_ENV === 'dev' ? $.sourcemaps.write('./') : $.util.noop())
+  .pipe(process.env.FM_ENV === 'dev' ? $.sourcemaps.write('./') : $.util.noop())
   .pipe(gulp.dest('dist/styles'));
 });
 
