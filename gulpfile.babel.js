@@ -49,7 +49,7 @@ const HTML_MINIFIER = {
   removeEmptyAttributes: true,
   removeScriptTypeAttributes: true,
   removeStyleLinkTypeAttributes: true,
-  removeOptionalTags: true,
+  removeOptionalTags: false,
   removeIgnored: true,
   removeEmptyElements: false,
   lint: true,
