@@ -87,8 +87,8 @@ gulp.task('images', () => {
     'app/img/**/*'
   ])
   .pipe(iproc)
-  .pipe($.size({title: 'images'}))
-  .pipe(gulp.dest('dist/img'));
+  .pipe(gulp.dest('dist/img'))
+  .pipe($.size({title: 'images'}));
 });
 
 // Copy all files at the root level (app)
@@ -98,8 +98,9 @@ gulp.task('copy-extra-files', () =>
     '!app/{styles,styles/**,img,img/**,scripts,scripts/**,*.html}'
   ], {
     dot: true
-  }).pipe(gulp.dest('dist'))
-    .pipe($.size({title: 'extra files'}))
+  })
+  .pipe(gulp.dest('dist'))
+  .pipe($.size({title: 'extra files'}))
 );
 
 // Compile CSS with postcss
@@ -118,9 +119,9 @@ gulp.task('styles', () => {
   .pipe($.postcss(processors))
   .pipe($.uncss(uncssOpts))
   .pipe($.minifyCss(MINIFY_CSS))
-  .pipe($.size({title: 'styles'}))
   .pipe(process.env.IF_ENV === 'dev' ? $.sourcemaps.write('./') : $.util.noop())
-  .pipe(gulp.dest('dist/styles'));
+  .pipe(gulp.dest('dist/styles'))
+  .pipe($.size({title: 'styles'}));
 });
 
 // We don't want sass this is left just in case that we need to compile something at some point
@@ -145,9 +146,9 @@ gulp.task('scripts', () => {
   .pipe($.babel())
   .pipe($.concat('main.js'))
   .pipe($.uglify({ preserveComments: 'some' }))
-  .pipe($.size({ title: 'scripts' }))
   .pipe(process.env.IF_ENV === 'dev' ? $.sourcemaps.write('./') : $.util.noop())
-  .pipe(gulp.dest('dist/scripts'));
+  .pipe(gulp.dest('dist/scripts'))
+  .pipe($.size({ title: 'scripts' }));
 });
 
 // Scan your HTML for assets & optimize them
@@ -156,8 +157,8 @@ gulp.task('html', () => {
     // Minify any HTML
     .pipe($.htmlMinifier(HTML_MINIFIER))
     // Output files
-    .pipe($.size({title: 'html', showFiles: true}))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist'))
+    .pipe($.size({title: 'html', showFiles: true}));
 });
 
 // Watch files for changes & reload
