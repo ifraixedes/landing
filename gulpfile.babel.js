@@ -69,21 +69,27 @@ const reload = browserSync.reload;
 // Lint JavaScript
 gulp.task('lintjs', () =>
   gulp.src('app/scripts/**/*.js')
-    .pipe($.eslint())
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failOnError()))
+  .pipe($.eslint())
+  .pipe($.eslint.format())
+  .pipe($.if(!browserSync.active, $.eslint.failOnError()))
 );
 
 // Optimize images
-gulp.task('images', () =>
-  gulp.src('app/img/**/*')
-    .pipe($.cache($.imagemin({
-      progressive: true,
-      interlaced: true
-    })))
-    .pipe(gulp.dest('dist/img'))
-    .pipe($.size({title: 'images'}))
-);
+gulp.task('images', () => {
+  let iproc = $.util.noop();
+
+  if (process.env.IF_ENV !== 'dev') {
+    iproc = $.cache($.imagemin({progressive: true, interlaced: true }));
+  }
+
+  return gulp.src([
+    'app/img',
+    'app/img/**/*'
+  ])
+  .pipe(iproc)
+  .pipe($.size({title: 'images'}))
+  .pipe(gulp.dest('dist/img'));
+});
 
 // Copy all files at the root level (app)
 gulp.task('copy-extra-files', () =>
@@ -107,16 +113,13 @@ gulp.task('styles', () => {
     html: ['dist/**/*.html']
   });
 
-  // For best performance, don't add Sass partials to `gulp.src`
-  return gulp.src([
-    'app/styles/main.css'
-  ])
-  .pipe(process.env.FM_ENV === 'dev' ? $.sourcemaps.init() : $.util.noop())
+  return gulp.src('app/styles/main.css')
+  .pipe(process.env.IF_ENV === 'dev' ? $.sourcemaps.init() : $.util.noop())
   .pipe($.postcss(processors))
   .pipe($.uncss(uncssOpts))
   .pipe($.minifyCss(MINIFY_CSS))
   .pipe($.size({title: 'styles'}))
-  .pipe(process.env.FM_ENV === 'dev' ? $.sourcemaps.write('./') : $.util.noop())
+  .pipe(process.env.IF_ENV === 'dev' ? $.sourcemaps.write('./') : $.util.noop())
   .pipe(gulp.dest('dist/styles'));
 });
 
@@ -136,14 +139,14 @@ gulp.task('styles', () => {
 //});
 
 gulp.task('scripts', () => {
-  gulp.src(['./app/scripts/**/*.js'])
+  gulp.src('./app/scripts/**/*.js')
   .pipe($.newer('./dist/scripts'))
-  .pipe(process.env.FM_ENV === 'dev' ? $.sourcemaps.init() : $.util.noop())
+  .pipe(process.env.IF_ENV === 'dev' ? $.sourcemaps.init() : $.util.noop())
   .pipe($.babel())
   .pipe($.concat('main.js'))
   .pipe($.uglify({ preserveComments: 'some' }))
   .pipe($.size({ title: 'scripts' }))
-  .pipe(process.env.FM_ENV === 'dev' ? $.sourcemaps.write('./') : $.util.noop())
+  .pipe(process.env.IF_ENV === 'dev' ? $.sourcemaps.write('./') : $.util.noop())
   .pipe(gulp.dest('dist/scripts'));
 });
 
@@ -163,7 +166,7 @@ gulp.task('serve', ['init'], () => {
     open: false,
     notify: false,
     // Customize the Browsersync console logging prefix
-    logPrefix: 'FM',
+    logPrefix: 'IF',
     // Allow scroll syncing across breakpoints
     //scrollElementMapping: ['main'],
     // Run as an https by uncommenting 'https: true'
@@ -178,7 +181,7 @@ gulp.task('serve', ['init'], () => {
   gulp.watch(['app/*', '!app/*.html'], ['copy-extra-files']);
   gulp.watch(['app/**/*.html'], ['html', reload]);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/scripts/**/*.js'], ['scripts', reload]);
+  gulp.watch(['app/scripts/**/*.js'], ['lintjs', 'scripts', reload]);
   gulp.watch(['app/img/**/*'], ['images', reload]);
 });
 
