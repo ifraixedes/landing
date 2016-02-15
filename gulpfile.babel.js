@@ -75,32 +75,24 @@ gulp.task('lintjs', () =>
 );
 
 // Optimize images
-gulp.task('images', () => {
-  let iproc = $.util.noop();
-
-  if (process.env.IF_ENV !== 'dev') {
-    iproc = $.cache($.imagemin({progressive: true, interlaced: true }));
-  }
-
-  return gulp.src([
-    'app/img',
-    'app/img/**/*'
-  ])
-  .pipe(iproc)
+gulp.task('images', () =>
+  gulp.src('app/img/**/*')
+  .pipe($.imagemin({progressive: true, interlaced: true }))
   .pipe(gulp.dest('dist/img'))
-  .pipe($.size({title: 'images'}));
-});
+  .pipe($.size({title: 'images', showFiles: true}))
+);
 
 // Copy all files at the root level (app)
 gulp.task('copy-extra-files', () =>
   gulp.src([
     'app/**/*',
-    '!app/{styles,styles/**,img,img/**,scripts,scripts/**,*.html}'
+    '!app/**/*.html',
+    '!app/{styles,styles/**,img,img/**,scripts,scripts/**}'
   ], {
     dot: true
   })
   .pipe(gulp.dest('dist'))
-  .pipe($.size({title: 'extra files'}))
+  .pipe($.size({title: 'extra files', showFiles: true}))
 );
 
 // Compile CSS with postcss
@@ -179,7 +171,7 @@ gulp.task('serve', ['init'], () => {
     port: 3000
   });
 
-  gulp.watch(['app/*', '!app/*.html'], ['copy-extra-files']);
+  gulp.watch(['app/**/*', '!app/**/*.html'], ['copy-extra-files']);
   gulp.watch(['app/**/*.html'], ['html', reload]);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js'], ['lintjs', 'scripts', reload]);
