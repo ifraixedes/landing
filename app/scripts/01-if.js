@@ -1,6 +1,7 @@
 'use strict';
 
 (function (win, doc) {
+  var FORM_REDIRECTOR_URL = 'https://data2googleforms.herokuapp.com/ivan-fraixed-es';
   var formElem = doc.getElementById('contactForm');
   var formSectionElem = doc.getElementById('contactFormSection');
   var submitOkElem = doc.getElementById('contactFormSentOK');
@@ -86,7 +87,7 @@
     onSubmit: function (evt) {
       evt.preventDefault();
       var data = getContactFormData(['entry.908361296', 'entry.135193594', 'entry.1512787164', 'entry.104139423']);
-      sendContactFormData('https://gforms-fraixedes.rhcloud.com/ivan-fraixed-es', data);
+      sendContactFormData(FORM_REDIRECTOR_URL, data);
     }
   });
 })(window, document);
