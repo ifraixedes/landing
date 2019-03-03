@@ -1,6 +1,8 @@
 My Landing Page
 ===============
 
+**DEPRECATED** in favor of [github.com/ifraixedes/my-landing](https://github.com/ifraixedes/my-landing).
+
 This repository is to build and serve through Github Pages my landing page (http://ivan.fraixed.es)
 
 
@@ -16,4 +18,3 @@ All the other resources which I use are released under their own license and the
 
 
 If I missed any or you want to be mentioned specifically, please open an issue; I will happily add it.
-
